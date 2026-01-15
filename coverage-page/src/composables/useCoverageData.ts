@@ -1,4 +1,4 @@
-import { ref, onMounted } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import type { NormalizedData, RequestData } from '../utils/types';
 
 function normalizeData(requestArray : RequestData[]): NormalizedData[] {
@@ -26,6 +26,12 @@ export function useCoverageData() {
 			console.error(error);
 		}
 	});
+	
+	const dataCategories = computed(() => {
+		const categories = data.value.map(row => row.category);
+		const uniqueCategories = [... new Set(categories)];
+		return uniqueCategories.map(category => ({ label: category, value: category.toLowerCase().replace(' ', '-')}))
+	})
 
-	return {data};
+	return {data, dataCategories};
 }
