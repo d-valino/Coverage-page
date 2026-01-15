@@ -26,6 +26,8 @@ export function useCoverageData() {
 			console.error(error);
 		}
 	});
+
+	const totalPlatforms = computed(() => data.value.length)
 	
 	const dataCategories = computed(() => {
 		const categories = data.value.map(row => row.category);
@@ -33,5 +35,5 @@ export function useCoverageData() {
 		return uniqueCategories.map(category => ({ label: category, value: category.toLowerCase().replace(' ', '-')}))
 	})
 
-	return {data, dataCategories};
+	return {data, dataCategories, totalPlatforms};
 }
