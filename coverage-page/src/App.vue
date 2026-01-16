@@ -16,6 +16,7 @@
 	<CoverageFilters
 	:categories="dataCategories"
 	:activeFilter="activeFilter"
+	:totalPlatforms="totalPlatforms"
 	@change="activeFilter = $event"/>
 
 	<CoverageTable :rows="filteredData"/>

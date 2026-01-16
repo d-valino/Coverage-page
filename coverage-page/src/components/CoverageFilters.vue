@@ -1,7 +1,8 @@
 <script setup lang="ts">
 	defineProps<{
 		activeFilter: string
-		categories:{ value: string; label: string }[]
+		categories:{ value: string; label: string, total:number }[]
+		totalPlatforms: number
 	}>()
 
 	const emit = defineEmits<{
@@ -15,13 +16,13 @@
 		<button
 			@click="emit('change', 'all')"
 			:class="{ active: activeFilter === 'all' }">
-			All Platforms
+			All Platforms ({{ totalPlatforms }})
 		</button>
 		<button v-for="category in categories"
 			:key="category.value"
 			@click="emit('change', category.value)"
 			:class="{ active: activeFilter === category.value }">
-			{{ category.label }}
+			{{ category.label }} ({{ category.total }})
 		</button>
 	</div>
 </template>
@@ -31,17 +32,17 @@
 	button {
 		padding: 8px;
 		background-color: #f4fafa;
-		color: #767d88;
+		color: #79808b;
 		border: 1px solid transparent;
 		border-radius: 40px;
 		font-weight: 500;
-		font-size: small;
+		font-size: x-small;
 		cursor: pointer;
 		font-family: inherit;
 	}
 	button.active {
 		background-color: #eaf0f5;
-		color: #243958;
+		color: #223857;
 	}
 	.filters {
 		display: flex;

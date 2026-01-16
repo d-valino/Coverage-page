@@ -32,7 +32,11 @@ export function useCoverageData() {
 	const dataCategories = computed(() => {
 		const categories = data.value.map(row => row.category);
 		const uniqueCategories = [... new Set(categories)];
-		return uniqueCategories.map(category => ({ label: category, value: category.toLowerCase().replace(' ', '-')}))
+		return uniqueCategories.map(category => ({
+			label: category,
+			value: category.toLowerCase().replace(' ', '-'),
+			total: data.value.filter(row => row.category === category).length
+		}))
 	})
 
 	return {data, dataCategories, totalPlatforms};

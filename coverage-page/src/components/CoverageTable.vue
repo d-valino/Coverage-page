@@ -47,7 +47,7 @@
 	th {
 		width: 300px;
 		text-align: left;
-		color: #243958;
+		color: #223857;
 		font-weight: 600;
 		padding-block: 10px;
 		padding-inline: 15px;
