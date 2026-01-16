@@ -1,5 +1,6 @@
 <script setup lang="ts">
 	import CoverageRow from './CoverageRow.vue';
+	import StatusChips from './StatusChips.vue';
 
 	defineProps<{
 		rows: {
@@ -10,6 +11,11 @@
 			status: string,
 			logoURL: string
 		}[]
+		statusFilter: 'all' | 'working' | 'coming-soon'
+	}>()
+
+	const emits = defineEmits<{
+		(e: 'update:statusFilter', value: 'all' | 'working' | 'coming-soon'): void
 	}>()
 </script>
 
@@ -20,7 +26,13 @@
 			<tr>
 				<th>Platform</th>
 				<th>Type</th>
-				<th>Status</th>
+				<th class="status">
+					Status
+					<StatusChips
+						:model-value="statusFilter"
+						@update:model-value="emits('update:statusFilter', $event)"
+					/>
+				</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -51,5 +63,10 @@
 		font-weight: 600;
 		padding-block: 10px;
 		padding-inline: 15px;
+		align-items: center;
+	}
+	.status {
+		display: flex;
+		gap: 8px;
 	}
 </style>

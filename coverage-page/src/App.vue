@@ -6,7 +6,7 @@
 	import { useCoverageFilters } from './composables/useCoverageFilters';
 
 	const {data, dataCategories, totalPlatforms} = useCoverageData();
-	const {activeFilter, filteredData} = useCoverageFilters(data);
+	const {statusFilter, categoryFilter, filteredData} = useCoverageFilters(data);
 </script>
 
 
@@ -15,9 +15,13 @@
 	
 	<CoverageFilters
 	:categories="dataCategories"
-	:activeFilter="activeFilter"
+	:activeFilter="categoryFilter"
 	:totalPlatforms="totalPlatforms"
-	@change="activeFilter = $event"/>
+	@change="categoryFilter = $event"/>
 
-	<CoverageTable :rows="filteredData"/>
+	<CoverageTable
+	:rows="filteredData"
+	:statusFilter="statusFilter"
+	@update:statusFilter="statusFilter = $event"
+	/>
 </template>
