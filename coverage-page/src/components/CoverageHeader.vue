@@ -15,17 +15,17 @@
 	</div>
 </template>
 
-
 <style scoped>
 	.top {
 		width: 100%;
 		height: 30px;
 		flex-shrink: 0;
-		background-color: #fafafa;
+		background: linear-gradient(0deg, #f7f8f8 0%, #ffffff 100%);
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
 		padding-inline: 15px;
+		padding-block: 20px;
 		box-sizing: border-box;
 	}
 	.rollee-logo {
