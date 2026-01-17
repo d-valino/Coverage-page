@@ -6,7 +6,7 @@
 	import { useCoverageFilters } from './composables/useCoverageFilters';
 	import { useCoverageSort } from './composables/useCoverageSort';
 	import SearchBar from './components/SearchBar.vue';
-	import { computed } from 'vue';
+	import { computed, watch } from 'vue';
 
 	const {data, dataCategories, totalPlatforms, isLoading, error} = useCoverageData();
 	const {searchInput, statusFilter, categoryFilter, filteredData} = useCoverageFilters(data);
@@ -14,6 +14,29 @@
 
 	const isEmpty = computed(() => {
 		return (!isLoading.value && filteredData.value.length === 0)
+	})
+
+	watch([categoryFilter, statusFilter, searchInput, sortDirection], () => {
+		const params = new URLSearchParams()
+
+		if (categoryFilter.value) {
+			params.set('category', categoryFilter.value)
+		}
+
+		if (statusFilter.value) {
+			params.set('status', statusFilter.value)
+		}
+
+		if (searchInput.value) {
+			params.set('search', searchInput.value)
+		}
+
+		if (sortDirection.value) {
+			params.set('sort', sortDirection.value)
+		}
+
+		const url = `${window.location.pathname}?${params.toString()}`
+		window.history.replaceState({}, '', url)
 	})
 </script>
 
