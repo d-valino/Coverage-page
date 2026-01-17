@@ -14,6 +14,7 @@
 		}[]
 		statusFilter: 'all' | 'working' | 'coming-soon'
 		sortDirection: 'asc' | 'desc'
+		isEmpty: boolean
 	}>()
 
 	const emits = defineEmits<{
@@ -44,10 +45,13 @@
 				</th>
 			</tr>
 		</thead>
-		<tbody>
+		<tbody v-if="!isEmpty">
 			<CoverageRow v-for="row in rows" :key="row.id" :row="row" />
 		</tbody>
 	</table>
+	<div class="stateMessage" v-if="isEmpty">
+		No results found
+	</div>
 </template>
 
 

@@ -18,3 +18,19 @@ body {
 	background-color: #f5f5fa;
 	min-height: 100vh;
 }
+
+.stateMessage {
+	width: 100%;
+	font-weight: 600;
+	color: #223857;
+	text-align: center;
+}
+
+.loader {
+  animation: l1 1s linear infinite alternate;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+@keyframes l1 {to{opacity: 0}}

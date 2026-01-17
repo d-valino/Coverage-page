@@ -6,37 +6,56 @@
 	import { useCoverageFilters } from './composables/useCoverageFilters';
 	import { useCoverageSort } from './composables/useCoverageSort';
 	import SearchBar from './components/SearchBar.vue';
+	import { computed } from 'vue';
 
-	const {data, dataCategories, totalPlatforms} = useCoverageData();
+	const {data, dataCategories, totalPlatforms, isLoading, error} = useCoverageData();
 	const {searchInput, statusFilter, categoryFilter, filteredData} = useCoverageFilters(data);
 	const {sortDirection, sortedData} = useCoverageSort(filteredData);
+
+	const isEmpty = computed(() => {
+		return (!isLoading.value && filteredData.value.length === 0)
+	})
 </script>
 
 
 <template>
-	<CoverageHeader :total="totalPlatforms"/>
+	
+	<div class="stateMessage loader" v-if="isLoading">
+		Loading Data...
+	</div>
+	
+	<div class="stateMessage error" v-else-if="error">
+		Error : {{ error }}
+	</div>
 
-	<div class="filters">
-		<CoverageFilters
-		:categories="dataCategories"
-		:activeFilter="categoryFilter"
-		:totalPlatforms="totalPlatforms"
-		@change="categoryFilter = $event"/>
+	<div v-else>
+		<CoverageHeader :total="totalPlatforms"/>
 		
-		<SearchBar
-		:search="searchInput"
-		@update:search="searchInput = $event"
+		<div class="filters">
+			<CoverageFilters
+			:categories="dataCategories"
+			:activeFilter="categoryFilter"
+			:totalPlatforms="totalPlatforms"
+			@change="categoryFilter = $event"/>
+			
+			<SearchBar
+			:search="searchInput"
+			@update:search="searchInput = $event"
+			/>
+		</div>
+	
+		<CoverageTable
+		:rows="sortedData"
+		:statusFilter="statusFilter"
+		:sortDirection="sortDirection"
+		:isEmpty="isEmpty"
+		@update:statusFilter="statusFilter = $event"
+		@update:sortDirection="sortDirection = $event"
 		/>
 	</div>
 
-	<CoverageTable
-	:rows="sortedData"
-	:statusFilter="statusFilter"
-	:sortDirection="sortDirection"
-	@update:statusFilter="statusFilter = $event"
-	@update:sortDirection="sortDirection = $event"
-	/>
 </template>
+
 
 <style scoped>
 	.filters {
@@ -49,5 +68,13 @@
 		padding-inline: 20px;
 		box-sizing: border-box;
 		gap: 12px;
+	}
+
+	.error {
+		color: red;
+		height: 100vh;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
 </style>
