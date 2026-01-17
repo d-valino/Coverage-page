@@ -1,5 +1,6 @@
 <script setup lang="ts">
 	import CoverageRow from './CoverageRow.vue';
+	import SortButton from './SortButton.vue';
 	import StatusChips from './StatusChips.vue';
 
 	defineProps<{
@@ -12,10 +13,12 @@
 			logoURL: string
 		}[]
 		statusFilter: 'all' | 'working' | 'coming-soon'
+		sortDirection: 'asc' | 'desc'
 	}>()
 
 	const emits = defineEmits<{
 		(e: 'update:statusFilter', value: 'all' | 'working' | 'coming-soon'): void
+		(e: 'update:sortDirection', value:  'asc' | 'desc'): void
 	}>()
 </script>
 
@@ -24,7 +27,13 @@
 	<table>
 		<thead>
 			<tr>
-				<th>Platform</th>
+				<th>
+					Platform
+					<SortButton
+						:direction="sortDirection"
+						@update:direction="emits('update:sortDirection', $event)"
+					/>
+				</th>
 				<th>Type</th>
 				<th class="status">
 					Status

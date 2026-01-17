@@ -4,15 +4,17 @@
 	import CoverageFilters from './components/CoverageFilters.vue';
 	import CoverageTable from './components/CoverageTable.vue';
 	import { useCoverageFilters } from './composables/useCoverageFilters';
+	import { useCoverageSort } from './composables/useCoverageSort';
 
 	const {data, dataCategories, totalPlatforms} = useCoverageData();
 	const {statusFilter, categoryFilter, filteredData} = useCoverageFilters(data);
+	const {sortDirection, sortedData} = useCoverageSort(filteredData);
 </script>
 
 
 <template>
 	<CoverageHeader :total="totalPlatforms"/>
-	
+
 	<CoverageFilters
 	:categories="dataCategories"
 	:activeFilter="categoryFilter"
@@ -20,8 +22,10 @@
 	@change="categoryFilter = $event"/>
 
 	<CoverageTable
-	:rows="filteredData"
+	:rows="sortedData"
 	:statusFilter="statusFilter"
+	:sortDirection="sortDirection"
 	@update:statusFilter="statusFilter = $event"
+	@update:sortDirection="sortDirection = $event"
 	/>
 </template>
