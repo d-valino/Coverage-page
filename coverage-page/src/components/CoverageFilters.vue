@@ -12,7 +12,7 @@
 
 
 <template>
-	<div class="filters">
+	<div class="categoryFilters">
 		<button
 			@click="emit('change', 'all')"
 			:class="{ active: activeFilter === 'all' }">
@@ -30,6 +30,8 @@
 
 <style scoped>
 	button {
+		flex-shrink: 0;
+		white-space: nowrap;
 		padding: 8px;
 		background-color: #f4fafa;
 		color: #79808b;
@@ -44,11 +46,18 @@
 		background-color: #eaf0f5;
 		color: #223857;
 	}
-	.filters {
+	.categoryFilters {
 		display: flex;
-		background-color: white;
+		white-space: nowrap;
 		gap: 10px;
 		padding-block: 10px;
 		padding-inline: 20px;
+
+		min-width: 0;
+		flex: 1 1 auto;
+		overflow-x: auto;
+		overflow-y: hidden;
+
+		scrollbar-width: thin;
 	}
 </style>

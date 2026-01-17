@@ -5,9 +5,10 @@
 	import CoverageTable from './components/CoverageTable.vue';
 	import { useCoverageFilters } from './composables/useCoverageFilters';
 	import { useCoverageSort } from './composables/useCoverageSort';
+	import SearchBar from './components/SearchBar.vue';
 
 	const {data, dataCategories, totalPlatforms} = useCoverageData();
-	const {statusFilter, categoryFilter, filteredData} = useCoverageFilters(data);
+	const {searchInput, statusFilter, categoryFilter, filteredData} = useCoverageFilters(data);
 	const {sortDirection, sortedData} = useCoverageSort(filteredData);
 </script>
 
@@ -15,11 +16,18 @@
 <template>
 	<CoverageHeader :total="totalPlatforms"/>
 
-	<CoverageFilters
-	:categories="dataCategories"
-	:activeFilter="categoryFilter"
-	:totalPlatforms="totalPlatforms"
-	@change="categoryFilter = $event"/>
+	<div class="filters">
+		<CoverageFilters
+		:categories="dataCategories"
+		:activeFilter="categoryFilter"
+		:totalPlatforms="totalPlatforms"
+		@change="categoryFilter = $event"/>
+		
+		<SearchBar
+		:search="searchInput"
+		@update:search="searchInput = $event"
+		/>
+	</div>
 
 	<CoverageTable
 	:rows="sortedData"
@@ -29,3 +37,17 @@
 	@update:sortDirection="sortDirection = $event"
 	/>
 </template>
+
+<style scoped>
+	.filters {
+		width: 100%;
+		display: flex;
+		flex-wrap: nowrap;
+		background-color: white;
+		align-items: center;
+		justify-content: space-between;
+		padding-inline: 20px;
+		box-sizing: border-box;
+		gap: 12px;
+	}
+</style>

@@ -5,6 +5,8 @@ export function useCoverageFilters(data: Ref<NormalizedData[]>) {
 	const categoryFilter = ref<string>('all');
 	const statusFilter = ref<'all' | 'working' | 'coming-soon'>('all');
 
+	const searchInput = ref('');
+
 	const filteredData = computed(() => {
 		return data.value.filter(row => {
 
@@ -15,10 +17,14 @@ export function useCoverageFilters(data: Ref<NormalizedData[]>) {
 			if (statusFilter.value !== 'all'
 				&& row.status.toLowerCase().replace(' ', '-') !== statusFilter.value)
 				return false;
-			
+
+			if (searchInput.value.trim().length
+				&& !row.name.toLowerCase().startsWith(searchInput.value.trim().toLocaleLowerCase()))
+				return false;
+
 			return true;
 		})
 	})
 
-	return {statusFilter, categoryFilter, filteredData};
+	return {searchInput, statusFilter, categoryFilter, filteredData};
 }
