@@ -1,39 +1,35 @@
 <script setup lang="ts">
-import { computed } from 'vue';
 
 	const props = defineProps<{
+		active: boolean
 		direction: 'asc' | 'desc'
 	}>()
 
 	const emit = defineEmits<{
-		(e: 'update:direction', value: 'asc' | 'desc'): void
+		(e: 'toggle'): void
 	}>()
 
-	const directionSort = computed({
-		get: () => props.direction,
-		set: v => emit('update:direction', v)
-	})
 </script>
 
 
 <template>
 	<button
-		@click="directionSort = (props.direction === 'asc') ? 'desc' : 'asc'"
+		@click="$emit('toggle')"
+		:class="[{active}]"
 	>
 		<svg
-		:class="props.direction"
-		class="sort-icon"
+		:class="['sort-icon', props.direction, {active}]"
 		viewBox="0 0 24 24"
 	>
 		<template v-if="props.direction === 'desc'">
-			<text x="14" y="8" font-size="17">a</text>
-			<text x="14" y="20" font-size="17">z</text>
+			<text x="14" y="10" font-size="17">a</text>
+			<text x="14" y="22" font-size="17">z</text>
 			<polyline points="4 10, 7 5, 10 10"/>
 			<line x1="7" y1="5" x2="7" y2="18"/>
 		</template>
 		<template v-else>
-			<text x="14" y="8" font-size="17">a</text>
-			<text x="14" y="20" font-size="17">z</text>
+			<text x="14" y="10" font-size="17">a</text>
+			<text x="14" y="22" font-size="17">z</text>
 			<polyline points="4 13, 7 18, 10 13"/>
 			<line x1="7" y1="5" x2="7" y2="18"/>
 		</template>
@@ -76,7 +72,9 @@ import { computed } from 'vue';
 		stroke-linecap: round;
 	}
 
-	.sort-icon.working {
-		color: #0b5ffb;
+	.active {
+		background-color: #d9d9d9;
+		color: white;
 	}
+
 </style>

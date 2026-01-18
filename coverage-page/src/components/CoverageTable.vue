@@ -1,4 +1,5 @@
 <script setup lang="ts">
+	import type { SortColumn } from '../composables/useCoverageSort';
 	import CoverageRow from './CoverageRow.vue';
 	import SortButton from './SortButton.vue';
 	import StatusChips from './StatusChips.vue';
@@ -14,11 +15,13 @@
 		}[]
 		statusFilter: 'all' | 'working' | 'coming-soon'
 		sortDirection: 'asc' | 'desc'
+		sortColumn: SortColumn
 		isEmpty: boolean
 	}>()
 
 	const emits = defineEmits<{
 		(e: 'update:statusFilter', value: 'all' | 'working' | 'coming-soon'): void
+		(e: 'sort', column: SortColumn): void
 		(e: 'update:sortDirection', value:  'asc' | 'desc'): void
 	}>()
 </script>
@@ -31,11 +34,21 @@
 				<th>
 					Platform
 					<SortButton
-						:direction="sortDirection"
-						@update:direction="emits('update:sortDirection', $event)"
+						column="name"
+						:active="sortColumn === 'name'"
+						:direction="sortColumn === 'name' ? sortDirection : 'asc'"
+						@toggle="emits('sort', 'name')"
 					/>
 				</th>
-				<th>Type</th>
+				<th>
+					Type
+					<SortButton
+						column="type"
+						:active="sortColumn === 'type'"
+						:direction="sortColumn === 'type' ? sortDirection : 'asc'"
+						@toggle="emits('sort', 'type')"
+					/>
+				</th>
 				<th class="status">
 					Status
 					<StatusChips

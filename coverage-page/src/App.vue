@@ -10,13 +10,13 @@
 
 	const {data, dataCategories, totalPlatforms, isLoading, error} = useCoverageData();
 	const {searchInput, statusFilter, categoryFilter, filteredData} = useCoverageFilters(data);
-	const {sortDirection, sortedData} = useCoverageSort(filteredData);
+	const {sortColumn, sortDirection, sortedData, toggleSort} = useCoverageSort(filteredData);
 
 	const isEmpty = computed(() => {
 		return (!isLoading.value && filteredData.value.length === 0)
 	})
 
-	watch([categoryFilter, statusFilter, searchInput, sortDirection], () => {
+	watch([categoryFilter, statusFilter, searchInput, sortDirection, sortColumn], () => {
 		const params = new URLSearchParams()
 
 		if (categoryFilter.value) {
@@ -32,7 +32,11 @@
 		}
 
 		if (sortDirection.value) {
-			params.set('sort', sortDirection.value)
+			params.set('dir', sortDirection.value)
+		}
+
+		if (sortColumn.value) {
+			params.set('column', sortColumn.value)
 		}
 
 		const url = `${window.location.pathname}?${params.toString()}`
@@ -69,8 +73,10 @@
 	
 		<CoverageTable
 		:rows="sortedData"
-		:statusFilter="statusFilter"
+		:sortColumn="sortColumn"
 		:sortDirection="sortDirection"
+		@sort="toggleSort"
+		:statusFilter="statusFilter"
 		:isEmpty="isEmpty"
 		@update:statusFilter="statusFilter = $event"
 		@update:sortDirection="sortDirection = $event"
