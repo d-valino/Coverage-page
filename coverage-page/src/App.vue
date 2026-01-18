@@ -1,7 +1,7 @@
 <script setup lang='ts'>
 	import { useCoverageData } from './composables/useCoverageData';
 	import CoverageHeader from './components/CoverageHeader.vue'
-	import CoverageFilters from './components/CoverageFilters.vue';
+	import CategoryFilters from './components/CategoryFilters.vue';
 	import CoverageTable from './components/CoverageTable.vue';
 	import { useCoverageFilters } from './composables/useCoverageFilters';
 	import { useCoverageSort } from './composables/useCoverageSort';
@@ -59,7 +59,7 @@
 		<CoverageHeader :total="totalPlatforms"/>
 		
 		<div class="filters">
-			<CoverageFilters
+			<CategoryFilters
 			:categories="dataCategories"
 			:activeFilter="categoryFilter"
 			:totalPlatforms="totalPlatforms"
