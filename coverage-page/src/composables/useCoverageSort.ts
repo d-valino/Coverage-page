@@ -1,4 +1,4 @@
-import { ref, computed, type Ref, onMounted } from 'vue'
+import { ref, computed, type Ref, onMounted, getCurrentInstance } from 'vue'
 import { type NormalizedData } from '../utils/types';
 
 
@@ -9,18 +9,21 @@ export function useCoverageSort(data: Ref<NormalizedData[]>) {
 	const sortDirection = ref< 'asc' | 'desc' >('asc');
 	const sortColumn = ref<SortColumn>('name');
 
-	onMounted(() => {
-		const params = new URLSearchParams(window.location.search)
-
-		const direction = params.get('dir');
-		const column = params.get('column');
-
-		if (column && SORT_COLUMNS.includes(column as SortColumn))
-			sortColumn.value = column as SortColumn;
-
-		if (direction && (direction === 'asc' || direction === 'desc'))
-			sortDirection.value = direction;
-	})
+	if (getCurrentInstance())
+	{
+		onMounted(() => {
+			const params = new URLSearchParams(window.location.search)
+	
+			const direction = params.get('dir');
+			const column = params.get('column');
+	
+			if (column && SORT_COLUMNS.includes(column as SortColumn))
+				sortColumn.value = column as SortColumn;
+	
+			if (direction && (direction === 'asc' || direction === 'desc'))
+				sortDirection.value = direction;
+		})
+	}
 
 	const sortedData = computed(() => {
 		return [...data.value]
