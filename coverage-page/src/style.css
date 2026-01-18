@@ -34,3 +34,11 @@ body {
   height: 100vh;
 }
 @keyframes l1 {to{opacity: 0}}
+
+button:focus,
+input:focus,
+select:focus {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+

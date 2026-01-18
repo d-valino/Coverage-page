@@ -22,6 +22,8 @@
 			class="chip left"
 			:class="{ active: statusFilter === 'working' }"
 			@click="statusFilter = (statusFilter === 'working') ? 'all' : 'working'"
+			:aria-pressed="statusFilter === 'working'"
+			aria-label="Filter by working status"
 		>
 			<svg
 				class="status-icon"
@@ -36,6 +38,8 @@
 			class="chip right"
 			:class="{ active: statusFilter === 'coming-soon' }"
 			@click="statusFilter = (statusFilter === 'coming-soon') ? 'all' : 'coming-soon'"
+			:aria-pressed="statusFilter === 'coming-soon'"
+			aria-label="Filter by coming soon status"
 		>
 			<svg
 				class="status-icon"

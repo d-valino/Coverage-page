@@ -22,7 +22,9 @@ import { computed } from 'vue';
 			class="searchBar"
 			v-model="emits"
 			type="text"
-			placeholder="Search Platform...">
+			placeholder="Search Platform..."
+			aria-label="Search platform by name"
+		>
 	</div>
 </template>
 

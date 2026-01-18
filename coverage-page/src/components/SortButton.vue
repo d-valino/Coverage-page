@@ -3,6 +3,7 @@
 	const props = defineProps<{
 		active: boolean
 		direction: 'asc' | 'desc'
+		column: string
 	}>()
 
 	const emit = defineEmits<{
@@ -16,10 +17,12 @@
 	<button
 		@click="$emit('toggle')"
 		:class="[{active}]"
+		:aria-label="`Sort by ${column}`"
 	>
 		<svg
 		:class="['sort-icon', props.direction, {active}]"
 		viewBox="0 0 24 24"
+		aria-hidden="true"
 	>
 		<template v-if="props.direction === 'desc'">
 			<text x="14" y="10" font-size="17">a</text>

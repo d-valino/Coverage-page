@@ -7,7 +7,7 @@
 
 <template>
 	<div class="top">
-		<img class="rollee-logo" src="../assets/rollee_logo.svg">
+		<img class="rollee-logo" src="../assets/rollee_logo.svg" alt="" aria-hidden="true">
 		<div class="total">
 			<p>Coverage</p>
 			<strong>{{ total }} platforms in total</strong>

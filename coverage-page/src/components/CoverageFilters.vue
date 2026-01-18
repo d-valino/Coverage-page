@@ -15,13 +15,17 @@
 	<div class="categoryFilters">
 		<button
 			@click="emit('change', 'all')"
-			:class="{ active: activeFilter === 'all' }">
+			:class="{ active: activeFilter === 'all' }"
+			:aria-pressed="activeFilter === 'all'"
+		>
 			All Platforms ({{ totalPlatforms }})
 		</button>
 		<button v-for="category in categories"
 			:key="category.value"
 			@click="emit('change', category.value)"
-			:class="{ active: activeFilter === category.value }">
+			:class="{ active: activeFilter === category.value }"
+			:aria-pressed="activeFilter === category.value"
+		>
 			{{ category.label }} ({{ category.total }})
 		</button>
 	</div>

@@ -17,7 +17,7 @@
 <template>
 	<tr>
 		<td class="platform">
-			<img class="platform-logo" :src="row.logoURL">
+			<img class="platform-logo" :src="row.logoURL" alt="" aria-hidden="true">
 			<span>{{ row.name }}</span>
 		</td>
 		<td class="type">{{ row.type }}</td>
