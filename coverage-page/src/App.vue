@@ -13,7 +13,18 @@
 	const {sortColumn, sortDirection, sortedData, toggleSort} = useCoverageSort(filteredData);
 
 	const isEmpty = computed(() => {
-		return (!isLoading.value && filteredData.value.length === 0)
+		return (!isLoading.value
+			&& !error.value
+			&& data.value.length > 0 &&
+			filteredData.value.length === 0)
+	})
+
+	const isNoData = computed(() => {
+		return (
+			!isLoading.value &&
+			!error.value &&
+			data.value.length === 0
+		)
 	})
 
 	watch([categoryFilter, statusFilter, searchInput, sortDirection, sortColumn], () => {
@@ -53,6 +64,10 @@
 	
 	<div class="stateMessage error" v-else-if="error">
 		Error : {{ error }}
+	</div>
+
+	<div class="stateMessage" v-else-if="isNoData">
+		No platforms available
 	</div>
 
 	<div v-else>
