@@ -14,3 +14,9 @@ export interface RequestData {
 	status: string,
 	type: string
 }
+
+export type Category = {
+	label: string
+	value: string
+	total: number
+}

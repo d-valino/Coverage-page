@@ -1,4 +1,4 @@
-import { ref, computed, onMounted, type Ref } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import type { NormalizedData, RequestData } from '../utils/types';
 
 function normalizeData(requestArray : RequestData[]): NormalizedData[] {

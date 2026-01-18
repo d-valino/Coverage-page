@@ -9,7 +9,7 @@
 	import { computed, watch } from 'vue';
 
 	const {data, dataCategories, totalPlatforms, isLoading, error} = useCoverageData();
-	const {searchInput, statusFilter, categoryFilter, filteredData} = useCoverageFilters(data);
+	const {searchInput, statusFilter, categoryFilter, filteredData} = useCoverageFilters(data, dataCategories);
 	const {sortColumn, sortDirection, sortedData, toggleSort} = useCoverageSort(filteredData);
 
 	const isEmpty = computed(() => {
