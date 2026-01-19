@@ -56,7 +56,7 @@ it('changes column and resets direction to asc', async () => {
 	const { sortedData, toggleSort } = useCoverageSort(data)
 
 	toggleSort('type')
-	awaiLt nextTick()
+	await nextTick()
 
 	expect(sortedData.value.map(i => i.type))
 		.toEqual(['Gig Economy', 'Gig Economy', 'Tax portals'])
